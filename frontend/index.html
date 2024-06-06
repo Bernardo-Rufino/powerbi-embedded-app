@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Dashboard</title>
+    <!-- URL for the Power BI client library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/powerbi-client/2.23.1/powerbi.min.js"></script>
+    <script src="scripts/embed.js"></script>
+    <style>
+        #input-container {
+            margin-bottom: 20px;
+        }
+        #email-input {
+            padding: 8px;
+            font-size: 16px;
+            width: 300px;
+        }
+        #visualize-button {
+            padding: 8px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Dashboard</h1>
+    <div id="input-container">
+        <input type="text" id="email-input" placeholder="Enter your email">
+        <button id="visualize-button">Visualize</button>
+    </div>
+    <div id="embedContainer" style="width: 1920px; height: 1440px;"></div>
+</body>
+</html>
