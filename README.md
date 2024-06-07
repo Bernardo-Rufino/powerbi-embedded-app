@@ -22,82 +22,67 @@ project-root/
 
 ## Prerequisites
 
-- Node.js (version 14.x or later)
-- npm (Node package manager)
+- Node.js installed
+- Power BI report and dataset
+- Tenant ID, Client ID, and Client Secret for Azure AD app registration
 
 ## Setup
 
-### Backend
+1. Clone the repository:
 
-1. Navigate to the backend directory and install dependencies:
+    ```sh
+    git clone <repository-url>
+    cd <repository-directory>
+    ```
 
-    ```bash
+2. Navigate to the `backend` directory and install dependencies:
+
+    ```sh
     cd backend
     npm install
     ```
 
-2. Create a `.env` file in the `backend` directory and add the following environment variables:
+3. Create a `.env` file in the `backend` directory with the following content:
 
     ```plaintext
-    TENANT_ID=your-tenant-id
-    CLIENT_ID=your-client-id
-    CLIENT_SECRET=your-client-secret
-    GROUP_ID=your-group-id
-    REPORT_ID=your-report-id
-    DATASET_ID=your-dataset-id
-    ROLES=Role1,Role2,AnotherRole
+    TENANT_ID=<your-tenant-id>
+    CLIENT_ID=<your-client-id>
+    CLIENT_SECRET=<your-client-secret>
+    GROUP_ID=<your-group-id>
+    REPORT_ID=<your-report-id>
+    DATASET_ID=<your-dataset-id>
+    ROLES=Manager
+    REPORT_NAME=<your-report-name>
     ```
 
-3. Start the backend server:
+4. Start the backend server:
 
-    ```bash
-    npm start
+    ```sh
+    node server.js
     ```
 
-### Frontend
+5. Open the `index.html` file in a web browser to view the embedded Power BI report.
 
-1. Navigate to the frontend directory and serve the files using `http-server`:
+## Usage
 
-    ```bash
-    cd frontend
-    npx http-server -p 8000
-    ```
+1. Open the web application in a browser.
+2. Enter a user email address in the provided text box.
+3. Click the "Visualize" button to load the Power BI report for the specified user.
 
-2. Open a web browser and navigate to:
+## Environment Variables
 
-    ```
-    http://localhost:8000
-    ```
+The following environment variables need to be set in the `.env` file located in the `backend` directory:
 
-## Code Details
+- `TENANT_ID`: Your Azure AD tenant ID.
+- `CLIENT_ID`: The client ID of your Azure AD app.
+- `CLIENT_SECRET`: The client secret of your Azure AD app.
+- `GROUP_ID`: The ID of the Power BI workspace (group) containing the report.
+- `REPORT_ID`: The ID of the Power BI report to embed.
+- `DATASET_ID`: The ID of the dataset used by the report.
+- `ROLES`: A comma-separated list of roles (e.g., `Region,Country` or just `Region`, without quotes).
+- `REPORT_NAME`: The name of the report to be displayed as the title on the page.
 
-### Backend (`server.js`)
+## Notes
 
-- The backend uses Express.js to create a simple server.
-- It includes routes to generate the Power BI embed token using Azure AD credentials.
-- It uses `node-fetch` to make HTTP requests to Azure AD and Power BI APIs.
-- CORS is enabled to allow requests from the frontend.
-- Environment variables are loaded from a `.env` file using `dotenv`.
-- Roles for Power BI embedded token are configured through the `ROLES` environment variable.
-- A `/getConfig` endpoint provides `reportId` and `groupId` to the frontend.
-
-### Frontend (`embed.js`)
-
-- The frontend JavaScript fetches the embed token from the backend and uses it to embed the Power BI report.
-- It fetches the `reportId` and `groupId` from the backend `/getConfig` endpoint.
-- It uses the Power BI JavaScript client library to handle the embedding process.
-- Users can input their email address and click "Visualize" to render the report.
-
-## Common Issues
-
-### CORS Errors
-
-If you encounter CORS errors, ensure that the backend server is properly configured to allow requests from your frontend origin. The provided code uses the `cors` middleware to handle this.
-
-### Access Token Issues
-
-Ensure that your Azure AD credentials and Power BI workspace details are correctly set. Verify the tokens and IDs being used.
-
-## License
-
-This project is licensed under the MIT License.
+- Ensure that CORS is enabled if you encounter any cross-origin issues.
+- The frontend is a simple HTML file with embedded JavaScript and can be extended as needed.
