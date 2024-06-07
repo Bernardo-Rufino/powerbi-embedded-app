@@ -78,7 +78,15 @@ async function embedPowerBIReport(username) {
     }
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+    try {
+        const config = await getConfig();
+        document.title = config.reportName; // Set the page title
+        document.getElementById('reportTitle').textContent = config.reportName; // Set the heading
+    } catch (error) {
+        console.error('Error fetching configuration: ', error);
+    }
+
     const visualizeButton = document.getElementById('visualize-button');
     visualizeButton.addEventListener('click', function () {
         const emailInput = document.getElementById('email-input').value;

@@ -18,6 +18,7 @@ const groupId = process.env.GROUP_ID;
 const datasetId = process.env.DATASET_ID;
 const reportId = process.env.REPORT_ID;
 const roles = process.env.ROLES.split(',');
+const reportName = process.env.REPORT_NAME;
 
 async function getApiAccessToken() {
     const fetch = (await import('node-fetch')).default;
@@ -74,7 +75,7 @@ app.post('/getEmbedToken', async (req, res) => {
 });
 
 app.get('/getConfig', (req, res) => {
-    res.json({ reportId, groupId });
+    res.json({ reportId, groupId, reportName });
 });
 
 app.listen(3000, () => {
