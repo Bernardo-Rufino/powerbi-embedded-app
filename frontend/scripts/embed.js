@@ -49,6 +49,13 @@ async function embedPowerBIReport(username) {
         };
 
         const embedContainer = document.getElementById('embedContainer');
+        
+        // Explicitly remove the existing report
+        if (window.powerbi.embeds.length > 0) {
+            window.powerbi.reset(embedContainer);
+        }
+
+        // Embed the report with the new config
         const report = window.powerbi.embed(embedContainer, powerBiConfig);
 
         report.off('loaded');
